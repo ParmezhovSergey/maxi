@@ -1,7 +1,7 @@
 import React from "react"
 import {useState} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { AppDispatch } from "../store/reduxStore";
+import { AppDispatch, RootState } from "../store/reduxStore";
 import {actions} from "../store/userReducer";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -27,8 +27,8 @@ const style = {
 
 export default function DeleteModal() {
     const dispatch = useDispatch<AppDispatch>()
-    const users = useSelector((state) => state.userReducer.users)
-    const userChecked = useSelector((state) => state.userReducer.userChecked)
+    const users = useSelector((state: RootState) => state.userReducer.users)
+    const userChecked = useSelector((state: RootState) => state.userReducer.userChecked)
     const [open, setOpen] = useState(false) //модальное окно
     const [openSnackbar, setOpenSnackbar] = useState(false) //снэкбар
 
@@ -38,7 +38,7 @@ export default function DeleteModal() {
     };
 
     const btn = () => {
-        const result = users.filter(e => !userChecked.some(x => e.id === x))
+        const result = users.filter((e: { id: unknown; }) => !userChecked.some((x: unknown) => e.id === x))
         dispatch(actions.setChange(result))
         handleClick()
         handleClose()

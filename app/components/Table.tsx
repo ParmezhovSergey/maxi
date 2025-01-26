@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
-import { AppDispatch } from '../store/reduxStore';
+import { AppDispatch, RootState } from '../store/reduxStore';
 import {actions, IUser} from "../store/userReducer";
 import AddModal from "./AddModal";
 import DeleteModal from "./DeleteModal";
@@ -63,17 +63,15 @@ function EditToolbar() {
 
 export default function FullFeaturedCrudGrid() {
     const dispatch = useDispatch<AppDispatch>();
-    const users: IUser[] = useSelector((state) => state.userReducer.users);
+    const users = useSelector<IUser[]>((state: RootState) => state.userReducer.users);
     //const deleteChecked = useSelector((state) => state.userReducer.deleteChecked);
     const [rows, setRows] = React.useState<IUser[] |  undefined>();
     const [checkboxUser, setCheckboxUser] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
     useEffect(() => {
-        if (users && users.length > 0){
-            const userInfo: IUser[] = users.map(obj => ({...obj, avatar: obj.name.charAt(0)})); //реструктуризация массива
-            setRows(userInfo);
-        }
+            const userInfo: IUser[] = users.map((obj: { name: string; }) => ({...obj, avatar: obj.name.charAt(0)})); //реструктуризация массива
+            setRows(userInfo);    
     }, [users])
 
     useEffect(() => {

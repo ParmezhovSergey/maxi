@@ -1,7 +1,7 @@
 import React from "react"
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from "react-redux";
-import { AppDispatch } from "../store/reduxStore";
+import { AppDispatch, RootState } from "../store/reduxStore";
 import {actions} from "../store/userReducer";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -44,7 +44,7 @@ export default function AddModal(props: IProps) {
     const { isAddModal, setIsAddModal} = props;
 
     const dispatch = useDispatch<AppDispatch>()
-    const users: IUser[] = useSelector((state) => state.userReducer.users)
+    const users: IUser[] = useSelector((state: RootState) => state.userReducer.users)
     const [errorName, setErrorName] = useState<string | null>('обязательное поле для заполнения') //ошибка формы name
     const [errorUserName, setErrorUserName] = useState<string | null>('обязательное поле для заполнения') //ошибка формы username
     const [errorEmail, setErrorEmail] = useState<string | null>('обязательное поле для заполнения') //ошибка формы email
@@ -80,7 +80,7 @@ export default function AddModal(props: IProps) {
         setIdUser(idNumber)
     }
 
-    function isValidEmail(email) {
+    function isValidEmail(email: string) {
         return /\S+@\S+\.\S+/.test(email);
     }
 
@@ -88,7 +88,7 @@ export default function AddModal(props: IProps) {
         return /^\s*$/.test(e);
     }
 
-    function validatePhone(phone) {
+    function validatePhone(phone: string | unknown[]) {
         return phone.length === 17
     }
 
