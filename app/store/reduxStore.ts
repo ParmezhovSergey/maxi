@@ -15,7 +15,7 @@ export const makeStore = createStore(
 
  export type Reducers = ReturnType<typeof reducer>;
  type PropertiesType<T> = T extends { [key: string]: infer U } ? U : never;
- export type ActionsTypes<T extends { [key: string]: (...args: any[]) => any }> = ReturnType<PropertiesType<T>>;
+ export type ActionsTypes<T extends { [key: string]: (...args: unknown[]) => unknown }> = ReturnType<PropertiesType<T>>;
 
 // Infer the type of makeStore
 export type AppStore = ReturnType<typeof makeStore>

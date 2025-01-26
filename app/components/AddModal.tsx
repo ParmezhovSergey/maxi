@@ -69,7 +69,7 @@ export default function AddModal(props: IProps) {
         if ((errorName === null) && (errorUserName === null) && (errorEmail === null) && (error === null) && (errorPhone === null)) {
             setDisabledButton(false)
         }
-    }, [newUser]);
+    }, [errorName, errorUserName, errorEmail, error, errorPhone]);
 
     useEffect(() => {
         isIdUser()

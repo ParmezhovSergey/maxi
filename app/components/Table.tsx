@@ -64,7 +64,7 @@ function EditToolbar() {
 export default function FullFeaturedCrudGrid() {
     const dispatch = useDispatch<AppDispatch>();
     const users: IUser[] = useSelector((state) => state.userReducer.users);
-    const deleteChecked = useSelector((state) => state.userReducer.deleteChecked);
+    //const deleteChecked = useSelector((state) => state.userReducer.deleteChecked);
     const [rows, setRows] = React.useState<IUser[] |  undefined>();
     const [checkboxUser, setCheckboxUser] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
@@ -78,11 +78,11 @@ export default function FullFeaturedCrudGrid() {
 
     useEffect(() => {
         dispatch(actions.setUserChecked(checkboxUser))
-    }, [checkboxUser]);
+    }, [checkboxUser, dispatch]);
 
-    useEffect(() => {
-        handleDeleteClick()
-    }, [deleteChecked]);
+    // useEffect(() => {
+    //     handleDeleteClick()
+    // }, [deleteChecked]);
 
     const handleDeleteCheckbox = (id: GridRowId) => () => {
         if (checkboxUser.includes(id)) {
@@ -144,7 +144,7 @@ export default function FullFeaturedCrudGrid() {
             cellClassName: 'actions',
             getActions: ({id}) => {
                 return [
-                    <Checkbox onChange={handleDeleteCheckbox(id)}/>
+                    <Checkbox key={id} onChange={handleDeleteCheckbox(id)}/>
                 ];
             },
         },
@@ -191,6 +191,7 @@ export default function FullFeaturedCrudGrid() {
                 if (isInEditMode) {
                     return [
                         <GridActionsCellItem
+                            key={id}
                             icon={<SaveIcon/>}
                             label="Save"
                             sx={{
@@ -199,6 +200,7 @@ export default function FullFeaturedCrudGrid() {
                             onClick={handleSaveClick(id)}
                         />,
                         <GridActionsCellItem
+                        key={id}
                             icon={<CancelIcon/>}
                             label="Cancel"
                             className="textPrimary"
@@ -210,6 +212,7 @@ export default function FullFeaturedCrudGrid() {
 
                 return [
                     <GridActionsCellItem
+                        key={id}
                         icon={<EditIcon/>}
                         label="Edit"
                         className="textPrimary"
@@ -217,6 +220,7 @@ export default function FullFeaturedCrudGrid() {
                         color="inherit"
                     />,
                     <GridActionsCellItem
+                        key={id}    
                         icon={<DeleteIcon/>}
                         label="Delete"
                         onClick={handleDeleteClick(id)}

@@ -6,7 +6,7 @@ export async function getUsers() {
         const data = response.data
         console.log('res', response)
         return data
-    } catch (e) {
+    } catch {
         return 'error'
     }
 }
