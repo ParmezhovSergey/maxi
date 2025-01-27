@@ -137,10 +137,8 @@ export default function AddModal(props: IProps) {
         setNewUser(state =>  ({...state , zipcode: event.target.value}));
     }
 
-    const btnSave = () => {
-        
+    const btnSave = () => {  
         dispatch(actions.setChange([...users, newUser]))
-        // setIsAddModal(false)
         setOpenSnackbar(true)
     };
 

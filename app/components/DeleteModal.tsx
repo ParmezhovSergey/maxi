@@ -11,7 +11,6 @@ import Snackbar, {SnackbarCloseReason} from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 
-
 const style = {
     position: 'absolute',
     top: '50%',
@@ -32,7 +31,6 @@ export default function DeleteModal() {
     const [open, setOpen] = useState(false) //модальное окно
     const [openSnackbar, setOpenSnackbar] = useState(false) //снэкбар
 
-
     const handleClick = () => {
         setOpenSnackbar(true);
     };
@@ -42,9 +40,7 @@ export default function DeleteModal() {
         dispatch(actions.setChange(result))
         handleClick()
         handleClose()
-        console.log('newUser', result)
     }
-
 
     const handleCloseSnackbar = (
         event?: React.SyntheticEvent | Event,

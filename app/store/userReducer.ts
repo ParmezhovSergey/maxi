@@ -6,8 +6,6 @@ const CHANGE = 'CHANGE'
 const USER_CHECKED = 'USER_CHECKED'
 
 type UsersAction = ActionsTypes<typeof actions>;
-//type ThunkType = ThunkAction<Promise<void>, Reducers, unknown, UsersAction>;
-
 
 export interface IUser {
     id: number,
@@ -62,7 +60,7 @@ export const actions = {
 export const fetchUsers = () => {
     return async (dispatch: AppDispatch) => {
         const response = await getUsers();
-        console.log('response', response)
+
         if (response && response.length > 0) {
             dispatch(actions.setFetchUsers(response?.map(({ name, id, username, phone, address, email }) => ({
                 id,

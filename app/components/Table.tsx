@@ -64,23 +64,20 @@ function EditToolbar() {
 export default function FullFeaturedCrudGrid() {
     const dispatch = useDispatch<AppDispatch>();
     const users = useSelector<IUser[]>((state: RootState) => state.userReducer.users);
-    //const deleteChecked = useSelector((state) => state.userReducer.deleteChecked);
     const [rows, setRows] = React.useState<IUser[] |  undefined>();
     const [checkboxUser, setCheckboxUser] = React.useState([]);
     const [rowModesModel, setRowModesModel] = React.useState<GridRowModesModel>({});
 
     useEffect(() => {
+        if (users){
             const userInfo: IUser[] = users.map((obj: { name: string; }) => ({...obj, avatar: obj.name.charAt(0)})); //реструктуризация массива
-            setRows(userInfo);    
+            setRows(userInfo);
+        }
     }, [users])
 
     useEffect(() => {
         dispatch(actions.setUserChecked(checkboxUser))
     }, [checkboxUser, dispatch]);
-
-    // useEffect(() => {
-    //     handleDeleteClick()
-    // }, [deleteChecked]);
 
     const handleDeleteCheckbox = (id: GridRowId) => () => {
         if (checkboxUser.includes(id)) {
